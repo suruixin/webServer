@@ -16,14 +16,17 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
   after(req, res)
 });
 
-console.log(before && before() && before().toString() === '[object Promise]')
 module.exports = async function (req, res, next) {
   let params = {};
-  if (before && before() && before().toString() === '[object Promise]') {
+  if (before && typeof before === 'function') {
     req.proxy = proxy;
-    await before(req, res, next).then(data => {
-      if (data) params = data
-    })
+    try {
+      await before(req, res, next).then(data => {
+        if (data) params = data
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
   if(typeof params !== 'object') return false;
   if (config.proxy.length < 1) {

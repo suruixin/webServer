@@ -58,7 +58,7 @@ const config = {
 ### 数据拦截
 
 #### before
-数据请求前拦截 必须为promise对象。当然，当你传递非promise时，不执行
+数据请求前拦截 必须为promise对象。当你传递非promise对象，抛出一个异常，但是不影响操作
 
 > 请求拦截
 
