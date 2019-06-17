@@ -67,9 +67,9 @@ const config = {
 ```
 // config/intercept.js
 exports.before = function (req, res, next) {
-	return new Promise(resolve => {
-		resolve({ headers: { userToken: '1516' } })
-	})
+  return new Promise(resolve => {
+	resolve({ headers: { userToken: '1516' } })
+  })
 }
 ```
 在上述的例子中 请求头会在原有的基础上添加上`userToken`然后传递给后台
@@ -80,8 +80,8 @@ exports.before = function (req, res, next) {
 ```
 // config/intercept.js
 exports.before = function (req, res, next) {
-	...
-	req.proxy.web(req, res, {});
+  ...
+  req.proxy.web(req, res, {});
 };
 ```
 
@@ -91,11 +91,11 @@ exports.before = function (req, res, next) {
 ```
 // config/intercept.js
 exports.after = function (req, res) {
-	if (/^\/login$/.test(req.url)) {
-		res.json({
-			message: 'success',
-			code: 0
-		})
-	}
+  if (/^\/login$/.test(req.url)) {
+    res.json({
+      message: 'success',
+      code: 0
+    })
+  }
 };
 ```

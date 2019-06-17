@@ -1,6 +1,6 @@
 /**
  ╔═════════════════ 组件说明 ═══════════════════╗
- ║  上次更新时间: 2019-6-13    更新人: 苏瑞鑫                                       ║
+ ║  上次更新时间: 2019-6-14    更新人: 苏瑞鑫                                       ║
  ║  before 数据请求前拦截 必须为promise对象 否则返回一个错误                        ║
  ║  若需要设置proxy字段 则在resolve中输出一个对象 具体可设置字段 参考               ║
  ║     [http-proxy](https://github.com/nodejitsu/node-http-proxy#options)           ║
@@ -20,7 +20,7 @@
  ║  after 用来拦截请求结束后数据 同webpack的devServer.after                         ║
  ╚═════════════════════════════════════════╝
  * */
-exports.before = function (req, res, next) {
+exports.before = async function (req, res, next) {
 
 };
 exports.after = function (req, res) {

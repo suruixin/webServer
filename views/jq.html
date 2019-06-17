@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<script src="/jq.js"></script>
+<body>
+<input type="text" id="value">
+<Button onclick="post()">提交</Button>
+<button onclick="login()">登录</button>
+</body>
+<script>
+  function post() {
+    let value = {};
+    if ($('#value').val()) {
+      value.user_id = $('#value').val()
+    }
+    $.post('/demo', value, function (data) {
+      console.log(data)
+    })
+  }
+  function login() {
+    $.post('/account/login', {
+      username: 'admin',
+      password: 123456,
+      scope: 'all',
+      courtNo: 1850
+    })
+  }
+</script>
+</html>
