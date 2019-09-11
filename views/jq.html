@@ -21,11 +21,9 @@
     })
   }
   function login() {
-    $.post('/account/login', {
-      username: 'admin',
-      password: 123456,
-      scope: 'all',
-      courtNo: 1850
+    $.post('/bgmt/login', {
+	    loginName: 'admin',
+	    password: 123456
     })
   }
 </script>

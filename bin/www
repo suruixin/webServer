@@ -7,12 +7,13 @@
 var app = require('../app');
 var debug = require('debug')('middleware:server');
 var http = require('http');
+const config = require('../config')
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3009');
+var port = normalizePort(config.port || '3009');
 app.set('port', port);
 
 /**
@@ -25,7 +26,9 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, function () {
+  console.log(`\x1b[32m server success! port: ${port} \x1b[0m`)
+});
 server.on('error', onError);
 server.on('listening', onListening);
 

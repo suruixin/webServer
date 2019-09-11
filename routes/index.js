@@ -1,9 +1,8 @@
-const express = require('express');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express = require("express");
 const router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
+router.get('/', function (_req, res) {
+    res.render('index');
 });
-
 module.exports = router;

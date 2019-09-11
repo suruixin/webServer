@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "sourceMap": false,
+    "declaration": false,
+//    "allowJs": true,
+//    "checkJs": true,
+//    "outDir": "./",
+//    "rootDir": "./",
+    "removeComments": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules",
+    "bin",
+    "public",
+    "views"
+  ]
+}
