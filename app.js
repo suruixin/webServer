@@ -6,6 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const ejs = require('ejs');
+const session = require('express-session');
 const globalAny = global;
 globalAny.__config = path.join(__dirname, '/config');
 globalAny.log = require('./common/log');
@@ -16,6 +17,11 @@ const app = express();
 app.engine('html', ejs.__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
+app.use(session({
+    secret: 'nodesession',
+    resave: true,
+    saveUninitialized: false
+}));
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

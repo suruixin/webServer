@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
-const config_1 = require("../config");
+const index_1 = require("./index");
 const Global = global;
 const log = Global.log;
 function Before(req) {
@@ -12,27 +12,72 @@ function After(_req, res) {
     return Promise.resolve(res);
 }
 exports.After = After;
-async function Login(req, _res) {
+function Login(req, _res) {
     return new Promise((resolve, reject) => {
+        let reg = new RegExp(index_1.conf.login.prefix || '');
         request({
-            method: config_1.conf.login.method,
-            url: config_1.conf.login.target + req.url
+            method: index_1.conf.login.method,
+            url: index_1.conf.login.target + (index_1.conf.login.prefix ? req.url.replace(reg, '') : req.url)
         }, (error, _response, body) => {
             if (error) {
                 log.error(error);
                 reject(error);
                 return false;
             }
-            console.log(typeof body);
+            let data = {
+                token: '',
+                refresh: '',
+                validTime: 0
+            };
             try {
-                body = JSON.parse(body);
+                let _d = JSON.parse(body);
+                console.log(_d);
+                data = {
+                    refresh: _d.refresh_token,
+                    validTime: new Date().getTime() + _d.expires_in * 1000,
+                    token: `${_d.token_type} ${_d.access_token}`
+                };
             }
             catch (e) {
                 console.log(e);
                 reject(e);
             }
-            resolve(body);
+            resolve(data);
         });
     });
 }
 exports.Login = Login;
+function RefreshToken(token) {
+    return new Promise((resolve, reject) => {
+        request({
+            method: index_1.conf.refreshToken.method,
+            url: (index_1.conf.refreshToken.target || index_1.conf.login.target) + (index_1.conf.refreshToken.url) + '?token=' + token
+        }, (error, _response, body) => {
+            if (error) {
+                log.error(error);
+                reject(error);
+                return false;
+            }
+            let data = {
+                token: '',
+                refresh: '',
+                validTime: 0
+            };
+            try {
+                let _d = JSON.parse(body);
+                console.log(_d);
+                data = {
+                    refresh: _d.refresh_token,
+                    validTime: new Date().getTime() + _d.expires_in * 1000,
+                    token: `${_d.token_type} ${_d.access_token}`
+                };
+            }
+            catch (e) {
+                console.log(e);
+                reject(e);
+            }
+            resolve(data);
+        });
+    });
+}
+exports.RefreshToken = RefreshToken;
